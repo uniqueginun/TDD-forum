@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head itemscope="" itemtype="http://schema.org/WebSite">
-    <title itemprop="name">Preview Bootstrap snippets. bs5 forum list</title>
+    <title itemprop="name">Ginun Forum</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta name="viewport" content="width=device-width">
