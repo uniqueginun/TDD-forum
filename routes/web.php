@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PublicArticleController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+
+Route::get('articles/{article}', PublicArticleController::class)->name('articles.show');
+
+Route::middleware(['auth'])->group(function() {
+   Route::get('articles/create', [ArticleController::class, 'create'])->name('articles.create');
+});
+

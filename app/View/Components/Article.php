@@ -12,7 +12,7 @@ class Article extends Component
      *
      * @return void
      */
-    public function __construct(public ModelsArticle $article)
+    public function __construct(public ModelsArticle $article, public bool $details = false)
     {
         //
     }

@@ -20,9 +20,9 @@ class HomepageTest extends TestCase
         $this->withoutExceptionHandling();
     }
 
-    protected function visitHomePage()
+    protected function successfullyVisitHomePage()
     {
-        return $this->get(route('welcome'));
+        return $this->get(route('welcome'))->assertStatus(Response::HTTP_OK);
     }
 
     /**
@@ -32,7 +32,7 @@ class HomepageTest extends TestCase
      */
     public function test_any_visitor_can_visit_homepage()
     {
-        $this->visitHomePage()->assertStatus(Response::HTTP_OK)->assertSeeText('Ginun Forum');
+        $this->successfullyVisitHomePage()->assertSeeText('Ginun Forum');
     }
 
     /**
@@ -47,9 +47,7 @@ class HomepageTest extends TestCase
             'created_at' => $creationDateTime = now()
         ]);
 
-        $response = $this->visitHomePage();
-
-        $response->assertStatus(Response::HTTP_OK);
+        $response = $this->successfullyVisitHomePage();
 
         $firstArticle = $articles->first();
 
@@ -61,6 +59,22 @@ class HomepageTest extends TestCase
         $response->assertSeeText(
             "Posted {$creationDateTime->diffForHumans()} by {$firstArticle->creator->name}"
         );        
+    }
+
+    /**
+     * test that visitors can see article details.
+     * 
+     * @return void
+     */
+    public function test_that_visitors_can_see_article_details()
+    {
+        $article = Article::factory()->create([
+            'title' => $title = 'my title'
+        ]);
+
+        $this->get(route('articles.show', $article->id))
+            ->assertStatus(Response::HTTP_OK)
+            ->assertSeeText($title);
     }
 
 }
